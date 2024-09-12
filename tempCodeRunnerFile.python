@@ -1,0 +1,69 @@
+import random
+
+def juego_papel_tijera_ajustado():
+    opciones = ['Piedra', 'Papel', 'Tijera']
+    resultados = {
+        ('Piedra', 'Tijera'): 'Gana el Jugador',
+        ('Piedra', 'Papel'): 'Gana la Máquina',
+        ('Papel', 'Piedra'): 'Gana el Jugador',
+        ('Papel', 'Tijera'): 'Gana la Máquina',
+        ('Tijera', 'Papel'): 'Gana el Jugador',
+        ('Tijera', 'Piedra'): 'Gana la Máquina'
+    }
+
+    puntajes = {"Jugador 1": 0, "Jugador 2": 0, "Máquina": 0}
+
+    print("Bienvenido al juego de Piedra, Papel o Tijera!")
+    
+    for ronda in range(1, 5):
+        print(f"\nRonda {ronda}")
+        
+        jugador1 = input("Jugador 1, elige Piedra, Papel o Tijera: ").capitalize()
+        while jugador1 not in opciones:
+            print("Opción inválida. Intenta nuevamente.")
+            jugador1 = input("Jugador 1, elige Piedra, Papel o Tijera: ").capitalize()
+
+        jugador2 = input("Jugador 2, elige Piedra, Papel o Tijera: ").capitalize()
+        while jugador2 not in opciones:
+            print("Opción inválida. Intenta nuevamente.")
+            jugador2 = input("Jugador 2, elige Piedra, Papel o Tijera: ").capitalize()
+
+        maquina = random.choice(opciones)
+        print(f"La máquina eligió: {maquina}")
+
+        # Comparar Jugador 1 con la Máquina
+        if jugador1 == maquina:
+            print("Jugador 1 y la Máquina empatan!")
+        else:
+            resultado1 = resultados[(jugador1, maquina)]
+            if resultado1 == 'Gana el Jugador':
+                puntajes["Jugador 1"] += 1
+                print("Jugador 1 gana contra la Máquina!")
+            else:
+                puntajes["Máquina"] += 1
+                print("La Máquina gana contra Jugador 1!")
+
+        # Comparar Jugador 2 con la Máquina
+        if jugador2 == maquina:
+            print("Jugador 2 y la Máquina empatan!")
+        else:
+            resultado2 = resultados[(jugador2, maquina)]
+            if resultado2 == 'Gana el Jugador':
+                puntajes["Jugador 2"] += 1
+                print("Jugador 2 gana contra la Máquina!")
+            else:
+                puntajes["Máquina"] += 1
+                print("La Máquina gana contra Jugador 2!")
+    
+    # Determinar el ganador después de cuatro rondas
+    print("\nResultado Final:")
+    print(f"Jugador 1: {puntajes['Jugador 1']} puntos")
+    print(f"Jugador 2: {puntajes['Jugador 2']} puntos")
+    print(f"Máquina: {puntajes['Máquina']} puntos")
+
+    ganador = max(puntajes, key=puntajes.get)
+    print(f"\nEl ganador es: {ganador}")
+
+if __name__ == "_main_":
+    juego_papel_tijera_ajustado()
+    
